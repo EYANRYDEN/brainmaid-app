@@ -166,6 +166,10 @@ async function signIn(email, password, create) {
       /Password should be/i.test(m) ? "Use a password of at least 6 characters." : m;
     render(); return;
   }
+  if (!res.data.session && create) {
+    const again = await sb.auth.signInWithPassword({ email, password });
+    if (!again.error && again.data.session) { S.session = again.data.session; await afterLogin(); return; }
+  }
   if (!res.data.session) { S.authMsg = "Check your email and tap the confirm link, then come back and sign in here."; S.authMode = "in"; render(); return; }
   S.session = res.data.session; await afterLogin();
 }
