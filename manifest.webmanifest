@@ -1,0 +1,15 @@
+{
+  "name": "BrainMaid",
+  "short_name": "BrainMaid",
+  "description": "Ryan and Tamlyn's family hub: today, calendar, lists and meals.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EAF1EE",
+  "theme_color": "#EAF1EE",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
