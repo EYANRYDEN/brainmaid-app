@@ -197,3 +197,6 @@ drop trigger if exists autoconfirm_invited on auth.users;
 create trigger autoconfirm_invited before insert on auth.users for each row execute function public.autoconfirm_invited();
 revoke execute on function public.claim_invite() from anon, public;
 revoke execute on function public.my_household() from anon, public;
+
+-- Harare/Pretoria time (UTC+2) for everything the database works out
+alter database postgres set timezone to 'Africa/Johannesburg';

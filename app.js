@@ -25,7 +25,11 @@ const pad = n => String(n).padStart(2, "0");
 const ymd = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
 const parse = s => { const [y, m, d] = String(s).slice(0, 10).split("-").map(Number); return new Date(y, m - 1, d); };
 const addDays = (d, n) => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; };
-const today = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
+/* All dates and times follow Harare/Pretoria time (UTC+2), whatever the phone is set to. */
+const TZ = "Africa/Johannesburg";
+const nowParts = () => Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hour12: false }).formatToParts(new Date()).map(x => [x.type, x.value]));
+const today = () => { const p = nowParts(); return new Date(+p.year, +p.month - 1, +p.day); };
+const hourNow = () => (+nowParts().hour) % 24;
 const mondayOf = d => addDays(d, -((d.getDay() + 6) % 7));
 const sameDay = (a, b) => ymd(a) === ymd(b);
 function dayLabel(d) {
@@ -205,7 +209,7 @@ function installBanner() {
 }
 
 function vToday() {
-  const t = today(), h = new Date().getHours();
+  const t = today(), h = hourNow();
   const greet = h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
   let html = `<div class="top"><div><h1>${greet}, ${esc(nameOf(mine()))}</h1><p class="sub">${esc(t.toLocaleDateString("en-ZA", { weekday: "long", day: "numeric", month: "long" }))}</p></div><button class="gear" data-act="settings" aria-label="Settings">${ICON.gear}</button></div>`;
   html += installBanner();
