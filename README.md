@@ -9,7 +9,7 @@ Ryan and Tamlyn's family hub: an installable phone app with four tabs (Today, Ca
 ## Setup
 
 1. Create a Supabase project, then run `supabase/setup.sql` once in its SQL Editor.
-2. In Supabase, go to Authentication, then Sign In / Providers, then Email, and turn off **Confirm email**.
+2. Invited emails are confirmed automatically by a database trigger, so no confirmation email is needed.
 3. Put the project URL and the publishable (anon) key into `config.js`. Never put the secret key in this repository.
 4. Turn on GitHub Pages for this repository (branch `main`, folder `/`).
 
